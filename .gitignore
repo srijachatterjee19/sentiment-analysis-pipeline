@@ -1,0 +1,42 @@
+.DS_Store
+.env
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+venv/
+ENV/
+.env.*
+# Jupyter Notebook
+.ipynb_checkpoints
+# Parquet and data files
+*.parquet
+*.csv
+*.tsv
+*.log
+# Node
+node_modules/
+.next/
+# OS
+.DS_Store
+Thumbs.db
+# Docker
+*.pid
+# Logs
+logs/
+*.log
+# Misc
+*.swp
+*.swo
+.idea/
+.vscode/
+# Test output
+coverage/
+*.cover
+*.pyc
+# Build
+build/
+dist/
+# Local env
+local.env
