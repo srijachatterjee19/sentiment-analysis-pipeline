@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  airflow:
+    image: apache/airflow:2.7.3-python3.10
+    container_name: airflow
+    restart: always
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__CORE__FERNET_KEY: 'your_fernet_key'
+      AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'false'
+      AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: sqlite:////opt/airflow/airflow.db
+    volumes:
+      - ./spark_job:/opt/spark_job
+      - ./logs:/opt/logs
+    ports:
+      - "8080:8080"
+    command: >
+      bash -c "
+        airflow db migrate
+        airflow connections create-default-connections &&
+        airflow users create --username admin --password admin --firstname airflow --lastname admin --role Admin --email admin@example.com &&
+        airflow webserver
+      "
+
+  scheduler:
+    image: apache/airflow:2.7.3-python3.10
+    container_name: airflow-scheduler
+    restart: always
+    depends_on:
+      - airflow
+    volumes:
+      - ./spark_job:/opt/airflow/spark_job
+      - ./logs:/opt/airflow/logs
+    command: >
+      bash -c "
+        airflow db upgrade &&
+        airflow scheduler
+      "
+

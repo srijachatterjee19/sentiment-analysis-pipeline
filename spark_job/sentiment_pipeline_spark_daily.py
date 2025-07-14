@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 default_args = {
     'owner': 'airflow',
     'depends_on_past': False,
-    'start_date': datetime(2024, 1, 1),
+    'start_date': datetime(2025, 7, 15),
     'retries': 1,
     'retry_delay': timedelta(minutes=5),
 }
@@ -24,10 +24,10 @@ with DAG(
         bash_command="""
         /spark/bin/spark-submit \
         --jars https://repo1.maven.org/maven2/com/google/cloud/spark/spark-bigquery-with-dependencies_2.12/0.36.1/spark-bigquery-with-dependencies_2.12-0.36.1.jar \
-        /opt/airflow/spark_job/spark_job.py
+        /opt/spark_job.py
         """,
         env={
-            'GOOGLE_APPLICATION_CREDENTIALS': '/opt/airflow/spark_job/key.json'
+            'GOOGLE_APPLICATION_CREDENTIALS': '/opt/key.json'
         }
     )
 
