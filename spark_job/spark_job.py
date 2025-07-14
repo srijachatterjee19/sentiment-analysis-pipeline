@@ -37,7 +37,7 @@ spark.conf.set("credentialsFile", "key.json")
 
 if ENV == "local":
     logger.info("🔧 LOCAL mode: loading Parquet")
-    df = spark.read.option("header", "true").csv("../dataset-ingestor/sentiment140_processed.csv")
+    df = spark.read.option("header", "true").csv("sentiment140_processed.csv")
 else:
     logger.info("🚀 PROD mode: loading BigQuery")
     
