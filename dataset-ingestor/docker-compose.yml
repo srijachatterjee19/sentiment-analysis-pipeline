@@ -1,0 +1,18 @@
+
+version: '3.8'
+
+services:
+  sentiment140:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sentiment140-ingestor
+    environment:
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/key.json
+    env_file:
+      - .env
+    volumes:
+      - ~/.config/gcloud/application_default_credentials.json:/app/key.json:ro
+      - ./logs:/app/logs
+      - ./data:/app/data
+    command: ["python", "ingest_sentiment140.py"]

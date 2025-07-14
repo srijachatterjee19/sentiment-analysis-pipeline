@@ -1,0 +1,6 @@
+pandas
+pyarrow
+google-cloud-storage
+google-cloud-bigquery
+kaggle
+dotenv
