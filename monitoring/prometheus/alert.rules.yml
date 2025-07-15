@@ -1,0 +1,11 @@
+groups:
+- name: airflow_alerts
+  rules:
+    - alert: AirflowDAGFailure
+      expr: increase(airflow_dag_run_failure_total{dag_id="spark_bigquery_sentiment"}[5m]) > 0
+      for: 1m
+      labels:
+        severity: critical
+      annotations:
+        summary: "DAG Failure: spark_bigquery_sentiment"
+        description: "DAG spark_bigquery_sentiment failed at least once in the last 5 minutes."

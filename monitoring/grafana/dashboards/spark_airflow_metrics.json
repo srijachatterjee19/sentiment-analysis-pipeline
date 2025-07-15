@@ -1,0 +1,35 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "type": "dashboard"
+      }
+    ]
+  },
+  "title": "Spark + Airflow Metrics",
+  "panels": [
+    {
+      "type": "timeseries",
+      "title": "Spark Job Duration (seconds)",
+      "targets": [
+        {
+          "expr": "spark_job_duration_seconds",
+          "legendFormat": "{{job}}"
+        }
+      ],
+      "datasource": "Prometheus"
+    },
+    {
+      "type": "timeseries",
+      "title": "Airflow DAG Failures",
+      "targets": [
+        {
+          "expr": "airflow_dag_run_failure_total",
+          "legendFormat": "{{dag_id}}"
+        }
+      ],
+      "datasource": "Prometheus"
+    }
+  ]
+}
